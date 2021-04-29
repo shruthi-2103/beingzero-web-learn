@@ -1,7 +1,7 @@
 const express = require('express');
 
 const app = express();
-
+//this is home handler
 app.get("/", function(req, res){
     res.send("Welcome to Shruthi's Basic site");
 })
