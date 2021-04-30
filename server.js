@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 
-get.use(express.static(__dirname+"/frontend"));
+app.use(express.static(__dirname+"/frontend"));
 //this is home handlergit
 app.get("/", function(req, res){
     res.send("Welcome to Shruthi's Basic site");
