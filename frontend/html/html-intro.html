@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COLOR</title>
+
+    <link ref="stylesheet" href="/css/color.css">
+
+</head>
+<body>
+    <h1>COLORS PICKER</h1>
+
+    <div id="rgb" width="50%" height="50%">
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+    <br>
+    <br>
+    <fieldset>
+        <label for="r">R</label>
+        <input type="range" id="r" name="red" min="0" max="255" id="r" step="1" value="0" oninput="red1.value=r.value">
+        <output for="r" id="outputR" name="outputR">0</output>
+    </fieldset>  
+       
+    <fieldset>
+        <label for="g">G</label>
+        <input type="range" min="0" max="255" id="g" step="1" value="0" oninput="green1.value=g.value">
+        <output for="g" id="outputG" name="outputG">0</output>
+    </fieldset>
+       
+    <fieldset>
+        <label for="b">B</label>
+        <input type="range" min="0" max="255" id="b" step="1" value="0" oninput="blue1.value=b.value">
+        <output for="b" id="outputB" name="outputB">0</output>
+    </fieldset>  
+
+
+    <output id="hexVal">#000000</output>
+
+    <script src="/js/color.js"></script>
+
+</body>
+</html>
