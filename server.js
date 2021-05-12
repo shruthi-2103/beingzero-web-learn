@@ -15,6 +15,12 @@ app.get("/resumee",function(req,res){
     file=__dirname+"/frontend/html/resume.html";
     res.sendFile(file);
 })
+
+app.get("/todolist",function(req,res){
+    file=__dirname+"/frontend/html/todo.html";
+    res.sendFile(file);
+})
+
 app.get("/google",function(req,res){
     file=__dirname+"/frontend/html/google.html";
     res.sendFile(file);
