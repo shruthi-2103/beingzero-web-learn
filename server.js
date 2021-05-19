@@ -1,58 +1,31 @@
 const express = require('express');
-
-const path = require('path');
-const mongoose = require('mongoose');
-const app = express();
 const courselib = require('./backend/lib/courselib');
+const mongoose=require('mongoose');
+const app = express();
+const password=process.env.Mongo_Atlas_password; 
+const connectionString="mongodb+srv://Shruthi_New:"+"Shruthi123"+"@cluster0.uaeoc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
-var pswd = process.env.mongoosepswd;
-console.log(pswd);
- app.use(express.urlencoded({extended: true}));
- app.use(express.json());
- 
-app.use(express.static(path.join(__dirname, "static")));
-
-var connection_string = "mongodb+srv://library:library@cluster0.xo1ph.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-mongoose.connect(connection_string, { useFindAndModify: false });
-var db = mongoose.connection;
-db.on('connected', function () {
-console.log('MongoDB connected!');
-});
-
-db.on('error', function (error) {
-console.error('Error in MongoDb connection: ' + error);
-});
-
-db.on('disconnected', function () {
-console.log('MongoDB disconnected!');
-});
-
-// const mongoose=require('mongoose');
-// const app = express();
-// const password=process.env.Mongo_Atlas_password; 
-// const connectionString="mongodb+srv://Shruthi_New:"+"Shruthi123"+"@cluster0.uaeoc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
-// mongoose.connect(connectionString,{ useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.error(err));
-// ;
-// // mongoose.connection.on('connected',function(){
-// //     console.log("Database Connected");
-// // })
+mongoose.connect(connectionString,{ useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.error(err));
+;
 // mongoose.connection.on('connected',function(){
-//     console.log("DataBase Connected");
+//     console.log("Database Connected");
 // })
+mongoose.connection.on('connected',function(){
+    console.log("DataBase Connected");
+})
 
 
-// mongoose.connection.on('connecting',function(){
-//     console.log("DataBase Connecting");
-// })
-// app.use(express.static(__dirname+"/frontend"));
+mongoose.connection.on('connecting',function(){
+    console.log("DataBase Connecting");
+})
+app.use(express.static(__dirname+"/frontend"));
 
-// app.use(express.urlencoded({extended:true}));
-// app.use(express.json());
-// app.use(function(req,res,next){
-//     console.log("Request came");
-//     next();
-// })
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
+app.use(function(req,res,next){
+    console.log("Request came");
+    next();
+})
 
 var todos=[];
 
@@ -140,7 +113,7 @@ app.get("/piechart",function(req,res){
 })
 
 app.get("/crudd", function(req, res){
-    filePathName=__dirname+'/static/html/crud.html';
+    filePathName=__dirname+'/frontend/html/crud.html';
     res.sendFile(filePathName);
 })
 
