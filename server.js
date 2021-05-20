@@ -1,23 +1,17 @@
 const express = require('express');
 const courselib = require('./backend/lib/courselib');
+const config=require('./backend/config/config.js');
 const mongoose=require('mongoose');
 const app = express();
-const password=process.env.Mongo_Atlas_password; 
-const connectionString="mongodb+srv://Shruthi_New:"+"Shruthi123"+"@cluster0.uaeoc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
-mongoose.connect(connectionString,{ useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.error(err));
-;
+// const password=process.env.Mongo_Atlas_password; 
+//const connectionString="mongodb+srv://Shruthi_New:"+"Shruthi123"+"@cluster0.uaeoc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const dbConnectLib=require('./backend/lib/dbConnectLib');
+// mongoose.connect(connectionString,{ useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.error(err));
+// ;
 // mongoose.connection.on('connected',function(){
 //     console.log("Database Connected");
 // })
-mongoose.connection.on('connected',function(){
-    console.log("DataBase Connected");
-})
-
-
-mongoose.connection.on('connecting',function(){
-    console.log("DataBase Connecting");
-})
+dbConnectLib.connect();
 app.use(express.static(__dirname+"/frontend"));
 
 app.use(express.urlencoded({extended:true}));
@@ -117,14 +111,19 @@ app.get("/crudd", function(req, res){
     res.sendFile(filePathName);
 })
 
+app.get("/tambola", function(req, res){
+    filePathName=__dirname+'/frontend/html/tambola.html';
+    res.sendFile(filePathName);
+})
+
 app.get("/crud", courselib.getall);
 app.delete("/crud/:idd", courselib.deleteone);
 app.put("/crud/:idd", courselib.update);
 app.post("/crud",courselib.addnewone);
 // Heroku will automatically set an environment variable called PORT
-const PORT = process.env.PORT || 3000;
+
 
 // Start the server
-app.listen(PORT, function(){
-    console.log("Server Starting running on http://localhost:"+PORT);
+app.listen(config.webPort, function(){
+    console.log("Server Starting running on http://localhost:"+config.webPort);
 })
